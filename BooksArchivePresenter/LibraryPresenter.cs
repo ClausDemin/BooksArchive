@@ -49,9 +49,9 @@ namespace BooksArchivePresenter
 
                 _color = ConsoleColor.Green;
 
-                string succeedMessage = $"Книга {book} успешно добавлена.";
+                string successMessage = $"Книга {book} успешно добавлена.";
 
-                _messageHandler(succeedMessage, _color);
+                _messageHandler(successMessage, _color);
 
                 return true;
             }
@@ -68,6 +68,25 @@ namespace BooksArchivePresenter
             return false;
         }
 
+        public bool TryRemoveBook(int number) 
+        {
+            try
+            {
+                var book = _library.RemoveBook(number - 1);
+                string successMessage = $"Книга {book} успешно удалена";
 
+                _color = ConsoleColor.Yellow;
+                _messageHandler(successMessage, _color);
+
+                return true;
+            }
+            catch (KeyNotFoundException) 
+            { 
+                _color = ConsoleColor.Red;
+                _messageHandler($"Книга с номером {number} не найдена", _color);
+
+                return false;
+            }
+        }
     }
 }

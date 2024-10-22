@@ -27,6 +27,18 @@ namespace Infrastructure
                     )
                 )
             );
+            mainMenu.Add
+            (
+                new MenuItem
+                (
+                    "Удалить книгу", 
+                    () => mainWindow.Presenter.TryRemoveBook
+                        (
+                            mainWindow.GetUserNumber("Введите номер книги, которую хотите удалить: ")
+                        )    
+                )
+            );
+
             mainMenu.Add(new MenuItem("Показать все книги", () => mainWindow.ShowAllBooks()));
             mainMenu.Add(new MenuItem("Поиск", () => mainWindow.SwitchMenu(findMenu)));
             mainMenu.Add(new MenuItem("Закрыть приложение", () => mainWindow.Close()));
