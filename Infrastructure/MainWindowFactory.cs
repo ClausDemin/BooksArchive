@@ -19,23 +19,60 @@ namespace Infrastructure
                 new MenuItem
                 (
                     "Добавить книгу",
-                    () => mainWindow.Presenter
-                        .TryAddBook
-                        (
-                            mainWindow.GetUserInput("Введите имя автора книги: "),
-                            mainWindow.GetUserInput("Введите название книги: "),
-                            mainWindow.GetUserNumber("Введите год издательства: ")
-                        )
+                    () => mainWindow.Presenter.TryAddBook
+                    (
+                        mainWindow.GetUserInput("Введите имя автора книги: "),
+                        mainWindow.GetUserInput("Введите название книги: "),
+                        mainWindow.GetUserNumber("Введите год издательства: ")
+                    )
                 )
             );
-            mainMenu.Add(new MenuItem("Показать книгу/и", () => mainWindow.ShowAllBooks()));
+            mainMenu.Add(new MenuItem("Показать все книги", () => mainWindow.ShowAllBooks()));
             mainMenu.Add(new MenuItem("Поиск", () => mainWindow.SwitchMenu(findMenu)));
             mainMenu.Add(new MenuItem("Закрыть приложение", () => mainWindow.Close()));
 
-            findMenu.Add(new MenuItem("Искать по автору: ", () => mainWindow.ShowBooksFromList(mainWindow.Presenter.SearchByAuthor(mainWindow.GetUserInput("Введите имя автора: ")))));
-            findMenu.Add(new MenuItem("Искать по названию: ", () => mainWindow.ShowBooksFromList(mainWindow.Presenter.SearchByName(mainWindow.GetUserInput("Введите название книги: ")))));
-            findMenu.Add(new MenuItem("Искать по году: ", () => mainWindow.ShowBooksFromList(mainWindow.Presenter.SearchByYear(mainWindow.GetUserNumber("Введите год издания книги: ")))));
-            
+            findMenu.Add
+            (
+                new MenuItem
+                (
+                    "Искать по автору: ", 
+                    () => mainWindow.ShowBooksFromList
+                    (
+                        mainWindow.Presenter.SearchByAuthor
+                        (
+                            mainWindow.GetUserInput("Введите имя автора: ")
+                        )
+                    )
+                )
+            );            
+            findMenu.Add
+            (
+                new MenuItem
+                (
+                    "Искать по названию книги: ", 
+                    () => mainWindow.ShowBooksFromList
+                    (
+                        mainWindow.Presenter.SearchByAuthor
+                        (
+                            mainWindow.GetUserInput("Введите название книги: ")
+                        )
+                    )
+                )
+            );            
+            findMenu.Add
+            (
+                new MenuItem
+                (
+                    "Искать по автору: ", 
+                    () => mainWindow.ShowBooksFromList
+                    (
+                        mainWindow.Presenter.SearchByYear
+                        (
+                            mainWindow.GetUserNumber("Введите год издания книги: ")
+                        )
+                    )
+                )
+            );
             
             findMenu.Add(new MenuItem("Назад...", () => mainWindow.SwitchMenu(mainMenu)));
 
