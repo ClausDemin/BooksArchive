@@ -40,6 +40,7 @@
                 var book = _books[index];
 
                 _books[index] = null;
+                _books.Remove(index);
                 _freeIndexes.Push(index);
 
                 return book;
