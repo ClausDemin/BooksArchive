@@ -17,7 +17,7 @@ namespace LibraryView
             _textOutput = textBox;
 
             _menu.DrawMenu();
-            _textOutput.PrintText();
+            _textOutput.UpdateText([]);
 
             _isExitRequest = false;
         }
@@ -44,13 +44,12 @@ namespace LibraryView
 
         public void PrintMessage(string message, ConsoleColor errorTextColor = ConsoleColor.Gray)
         {
-            _textOutput.Text = [message];
-            _textOutput.PrintText(errorTextColor);
+            _textOutput.UpdateText([message], errorTextColor);
         }
 
         public void ShowAllBooks()
         {
-            ShowBooksFromList(Presenter.GetBooks());
+            ShowBooksFromList(Presenter.Books);
         }
 
         public void ShowBooksFromList(IEnumerable<Book> books) 
@@ -62,8 +61,7 @@ namespace LibraryView
                 bookLines.Add(book.ToString());
             }
 
-            _textOutput.Text = bookLines.ToArray();
-            _textOutput.PrintText();
+            _textOutput.UpdateText(bookLines.ToArray());
         }
 
         public void Run()

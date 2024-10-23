@@ -14,12 +14,9 @@ namespace LibraryView
             _position = new Point(cursorPositionLeft, cursorPositionTop);
             _marginRight = marginRight;
             _length = textBoxLength - marginRight;
-            Text = [];
         }
 
-        public string[] Text { get; set; }
-
-        public void PrintText(ConsoleColor textColor = ConsoleColor.Gray)
+        public void UpdateText(string[] text, ConsoleColor textColor = ConsoleColor.Gray)
         {
             ClearOutput();
 
@@ -31,7 +28,7 @@ namespace LibraryView
 
             var lastInputLength = 0;
 
-            foreach (var line in Text)
+            foreach (var line in text)
             {
                 for (int i = 0, j = 0; i < line.Length; i++, j++)
                 {
@@ -50,7 +47,11 @@ namespace LibraryView
 
             if (_position.Y > 0) 
             {
-                Console.SetCursorPosition(_position.X + (lastInputLength + _marginRight * --_position.Y) % _position.X, _position.Y);
+                --_position.Y;
+
+                int userInputPositionY = (lastInputLength + _marginRight * _position.Y) % _position.X;
+
+                Console.SetCursorPosition(_position.X + userInputPositionY, _position.Y);
             }
 
             Console.ForegroundColor = defaultColor;
@@ -62,9 +63,7 @@ namespace LibraryView
 
             ClearOutput();
 
-            Text = [message];
-
-            PrintText();
+            UpdateText([message]);
 
             string output = Console.ReadLine();
 

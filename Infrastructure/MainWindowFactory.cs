@@ -75,7 +75,7 @@ namespace Infrastructure
             (
                 new MenuItem
                 (
-                    "Искать по автору: ", 
+                    "Искать по году издания: ", 
                     () => mainWindow.ShowBooksFromList
                     (
                         mainWindow.Presenter.SearchByYear

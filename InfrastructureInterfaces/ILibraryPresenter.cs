@@ -8,7 +8,7 @@ namespace InfrastructureInterfaces
 
         bool TryRemoveBook(int index);
 
-        public IEnumerable<Book> GetBooks();
+        public IEnumerable<Book> Books { get; }
 
         public IEnumerable<Book> SearchByAuthor(string author);
 

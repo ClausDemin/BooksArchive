@@ -9,21 +9,14 @@ namespace BooksArchivePresenter
         private Library _library;
 
         private ILibraryView _libraryView;
-        private Action<string, ConsoleColor> _messageHandler;
-        private ConsoleColor _color;
 
         public LibraryPresenter(ILibraryView libraryView) 
         {
             _libraryView = libraryView;
             _library = new Library();
-
-            _messageHandler = (string message, ConsoleColor color) =>  _libraryView.PrintMessage(message, _color);
         }
 
-        public IEnumerable<Book> GetBooks()
-        {
-            return _library.Books;
-        }
+        public IEnumerable<Book> Books => _library.Books;
 
         public IEnumerable<Book> SearchByAuthor(string author) 
         {
@@ -47,23 +40,19 @@ namespace BooksArchivePresenter
                 var book = new Book(author, name, year);
                 _library.AddBook(book);
 
-                _color = ConsoleColor.Green;
-
                 string successMessage = $"Книга {book} успешно добавлена.";
 
-                _messageHandler(successMessage, _color);
+                _libraryView.PrintMessage(successMessage, ConsoleColor.Green);
 
                 return true;
             }
             catch (ArgumentOutOfRangeException exception)
             {
-                _color = ConsoleColor.Red;
-                _messageHandler("Year must be greater than zero", _color);
+                _libraryView.PrintMessage("Year must be greater than zero", ConsoleColor.Red);
             }
             catch (ArgumentException) 
             {
-                _color = ConsoleColor.Red;
-                _messageHandler("name or author cannot be empty", _color);
+                _libraryView.PrintMessage("name or author cannot be empty", ConsoleColor.Red);
             }
             return false;
         }
@@ -75,15 +64,13 @@ namespace BooksArchivePresenter
                 var book = _library.RemoveBook(number - 1);
                 string successMessage = $"Книга {book} успешно удалена";
 
-                _color = ConsoleColor.Yellow;
-                _messageHandler(successMessage, _color);
+                _libraryView.PrintMessage(successMessage, ConsoleColor.Red);
 
                 return true;
             }
             catch (KeyNotFoundException) 
             { 
-                _color = ConsoleColor.Red;
-                _messageHandler($"Книга с номером {number} не найдена", _color);
+                _libraryView.PrintMessage($"Книга с номером {number} не найдена", ConsoleColor.Red);
 
                 return false;
             }
